@@ -58,4 +58,8 @@ contract Bank {
     function getTokenBalance(bytes32 symbol) external view returns (uint256) {
         return balances[msg.sender][symbol];
     }
+
+    receive() external payable {
+        balances[msg.sender]["Eth"] += msg.value;
+    }
 }
