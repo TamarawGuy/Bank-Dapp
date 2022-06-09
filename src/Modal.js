@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -49,6 +49,8 @@ const MiddleRight = styled.div`
   flex: 2;
 `;
 
+const Form = styled.form``;
+
 const Input = styled.input`
   width: 91%;
   padding: 8px;
@@ -96,25 +98,30 @@ const CloseBtn = styled.button`
   cursor: pointer;
 `;
 
-const Modal = ({ toggleShowModal }) => {
+const Modal = ({ selectedSymbol, toggleShowModal }) => {
+  const [amount, setAmount] = useState(0);
   return (
     <Container>
       <Wrapper>
         <Top>
-          <Title>Eth</Title>
+          <Title>{selectedSymbol}</Title>
         </Top>
         <Middle>
           <MiddleLeft>
             <Amount>Amount</Amount>
           </MiddleLeft>
           <MiddleRight>
-            <Input></Input>
-            <BtnWrapper>
-              <DepositBtn onClick={() => toggleShowModal()}>Deposit</DepositBtn>
-              <WithdrawBtn onClick={() => toggleShowModal()}>
-                Withdraw
-              </WithdrawBtn>
-            </BtnWrapper>
+            <Form>
+              <Input></Input>
+              <BtnWrapper>
+                <DepositBtn onClick={() => toggleShowModal()}>
+                  Deposit
+                </DepositBtn>
+                <WithdrawBtn onClick={() => toggleShowModal()}>
+                  Withdraw
+                </WithdrawBtn>
+              </BtnWrapper>
+            </Form>
           </MiddleRight>
         </Middle>
         <Bottom>

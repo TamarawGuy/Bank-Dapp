@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  min-width: 30%;
+  min-width: 35%;
   min-height: 30%;
   background-color: #eeeeee;
   position: absolute;
@@ -45,38 +45,54 @@ const DepositWithdrawBtn = styled.button`
   cursor: pointer;
 `;
 
-const Dashboard = ({ toggleShowModal }) => {
+const Dashboard = ({ setSelectedSymbol, tokenBalances, toggleShowModal }) => {
+  const tokens = Object.keys(tokenBalances);
   return (
     <Container>
       <Wrapper>
-        <TokenLine>
-          <TokenTitle>AVAX</TokenTitle>
+        {tokens.map((token, index) => (
+          <TokenLine key={index}>
+            <TokenTitle>{token}</TokenTitle>
+            <TokenNum>{tokenBalances[token]}</TokenNum>
+            <DepositWithdrawBtn
+              onClick={() => {
+                toggleShowModal();
+                setSelectedSymbol(token);
+              }}
+            >
+              Deposit / Withdraw
+            </DepositWithdrawBtn>
+          </TokenLine>
+        ))}
+
+        {/* <TokenLine>
+          <TokenTitle>Avax</TokenTitle>
           <TokenNum>0.00</TokenNum>
           <DepositWithdrawBtn onClick={() => toggleShowModal()}>
             Deposit/Withdraw
           </DepositWithdrawBtn>
         </TokenLine>
         <TokenLine>
-          <TokenTitle>DOGE</TokenTitle>
+          <TokenTitle>Doge</TokenTitle>
           <TokenNum>0.00</TokenNum>
           <DepositWithdrawBtn onClick={() => toggleShowModal()}>
             Deposit/Withdraw
           </DepositWithdrawBtn>
         </TokenLine>
         <TokenLine>
-          <TokenTitle>SHIB</TokenTitle>
+          <TokenTitle>Shib</TokenTitle>
           <TokenNum>0.00</TokenNum>
           <DepositWithdrawBtn onClick={() => toggleShowModal()}>
             Deposit/Withdraw
           </DepositWithdrawBtn>
         </TokenLine>
         <TokenLine>
-          <TokenTitle>ETH</TokenTitle>
+          <TokenTitle>Eth</TokenTitle>
           <TokenNum>0.00</TokenNum>
           <DepositWithdrawBtn onClick={() => toggleShowModal()}>
             Deposit/Withdraw
           </DepositWithdrawBtn>
-        </TokenLine>
+        </TokenLine> */}
       </Wrapper>
     </Container>
   );
