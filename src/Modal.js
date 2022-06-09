@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  width: 25%;
-  height: 25%;
+  min-width: 25%;
+  min-height: 25%;
   background-color: #eeeeee;
   position: absolute;
   top: 50%;
@@ -96,7 +96,7 @@ const CloseBtn = styled.button`
   cursor: pointer;
 `;
 
-const Modal = () => {
+const Modal = ({ toggleShowModal }) => {
   return (
     <Container>
       <Wrapper>
@@ -110,13 +110,15 @@ const Modal = () => {
           <MiddleRight>
             <Input></Input>
             <BtnWrapper>
-              <DepositBtn>Deposit</DepositBtn>
-              <WithdrawBtn>Withdraw</WithdrawBtn>
+              <DepositBtn onClick={() => toggleShowModal()}>Deposit</DepositBtn>
+              <WithdrawBtn onClick={() => toggleShowModal()}>
+                Withdraw
+              </WithdrawBtn>
             </BtnWrapper>
           </MiddleRight>
         </Middle>
         <Bottom>
-          <CloseBtn>X</CloseBtn>
+          <CloseBtn onClick={() => toggleShowModal()}>X</CloseBtn>
         </Bottom>
       </Wrapper>
     </Container>
