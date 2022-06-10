@@ -13,6 +13,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,7 +21,7 @@ const Wrapper = styled.div`
 `;
 
 const TokenLine = styled.div`
-  padding-top: 17px;
+  padding-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -64,35 +65,6 @@ const Dashboard = ({ setSelectedSymbol, tokenBalances, toggleShowModal }) => {
             </DepositWithdrawBtn>
           </TokenLine>
         ))}
-
-        {/* <TokenLine>
-          <TokenTitle>Avax</TokenTitle>
-          <TokenNum>0.00</TokenNum>
-          <DepositWithdrawBtn onClick={() => toggleShowModal()}>
-            Deposit/Withdraw
-          </DepositWithdrawBtn>
-        </TokenLine>
-        <TokenLine>
-          <TokenTitle>Doge</TokenTitle>
-          <TokenNum>0.00</TokenNum>
-          <DepositWithdrawBtn onClick={() => toggleShowModal()}>
-            Deposit/Withdraw
-          </DepositWithdrawBtn>
-        </TokenLine>
-        <TokenLine>
-          <TokenTitle>Shib</TokenTitle>
-          <TokenNum>0.00</TokenNum>
-          <DepositWithdrawBtn onClick={() => toggleShowModal()}>
-            Deposit/Withdraw
-          </DepositWithdrawBtn>
-        </TokenLine>
-        <TokenLine>
-          <TokenTitle>Eth</TokenTitle>
-          <TokenNum>0.00</TokenNum>
-          <DepositWithdrawBtn onClick={() => toggleShowModal()}>
-            Deposit/Withdraw
-          </DepositWithdrawBtn>
-        </TokenLine> */}
       </Wrapper>
     </Container>
   );

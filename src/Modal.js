@@ -98,8 +98,30 @@ const CloseBtn = styled.button`
   cursor: pointer;
 `;
 
-const Modal = ({ selectedSymbol, toggleShowModal }) => {
+const Modal = ({
+  selectedSymbol,
+  depositTokens,
+  withdrawTokens,
+  toggleShowModal,
+  fromEthToWei,
+}) => {
   const [amount, setAmount] = useState(0);
+  const [isDeposit, setIsDeposit] = useState(false);
+
+  const depositOrWithdraw = (amount) => {
+    const wei = fromEthToWei(amount);
+
+    if (isDeposit) {
+      console.log(`Deposit: ${wei}`);
+      depositTokens(wei, selectedSymbol);
+      toggleShowModal();
+    } else {
+      console.log(`Withdraw: ${wei}`);
+      withdrawTokens(wei, selectedSymbol);
+      toggleShowModal();
+    }
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -111,13 +133,18 @@ const Modal = ({ selectedSymbol, toggleShowModal }) => {
             <Amount>Amount</Amount>
           </MiddleLeft>
           <MiddleRight>
-            <Form>
-              <Input></Input>
+            <Form
+              onSubmit={(e) => {
+                e.preventDefault();
+                depositOrWithdraw(amount);
+              }}
+            >
+              <Input onChange={(e) => setAmount(e.target.value)} />
               <BtnWrapper>
-                <DepositBtn onClick={() => toggleShowModal()}>
+                <DepositBtn onClick={() => setIsDeposit(true)}>
                   Deposit
                 </DepositBtn>
-                <WithdrawBtn onClick={() => toggleShowModal()}>
+                <WithdrawBtn onClick={() => setIsDeposit(false)}>
                   Withdraw
                 </WithdrawBtn>
               </BtnWrapper>

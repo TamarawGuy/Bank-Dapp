@@ -33,6 +33,8 @@ const App = () => {
     ethers.utils.parseBytes32String(bytes32);
   const fromStringToBytes32 = (text) => ethers.utils.formatBytes32String(text);
   const fromWeiToEth = (wei) => ethers.utils.formatEther(wei).toString();
+  const fromEthToWei = (ether) => ethers.utils.parseEther(ether);
+  const toRound = (num) => Number(num).toFixed(2);
 
   useEffect(() => {
     const init = async () => {
@@ -128,14 +130,22 @@ const App = () => {
         to: bankContract.address,
         value: wei,
       });
+      signer.sendTransaction(tx1);
+      // await tx1.wait();
+      // const tx2 = await bankContract
+      //   .connect(signer)
+      //   .depositTokens(wei, fromStringToBytes32(symbol));
+      // await tx2.wait();
+    } else {
+      const tokenContract = tokenContracts[symbol];
+      const tx1 = await tokenContract
+        .connect(signer)
+        .approve(bankContract.address, wei);
       await tx1.wait();
       const tx2 = await bankContract
         .connect(signer)
         .depositTokens(wei, fromStringToBytes32(symbol));
       await tx2.wait();
-    } else {
-      const tokenContract = tokenContracts[symbol];
-      tokenContract.connect(signer).approve(bankContract.address, wei);
     }
   };
 
@@ -148,11 +158,13 @@ const App = () => {
       signer
     );
     if (symbol === "Eth") {
-      await bankContract.connect(signer).withdrawEther(wei);
+      const tx = await bankContract.connect(signer).withdrawEther(wei);
+      await tx.wait();
     } else {
-      await bankContract
+      const tx = await bankContract
         .connect(signer)
         .withdrawTokens(wei, fromStringToBytes32(symbol));
+      await tx.wait();
     }
   };
 
@@ -166,6 +178,9 @@ const App = () => {
             <Modal
               toggleShowModal={toggleShowModal}
               selectedSymbol={selectedSymbol}
+              depositTokens={depositTokens}
+              withdrawTokens={withdrawTokens}
+              fromEthToWei={fromEthToWei}
             />
           </ModalContainer>
           <DashboardContainer style={{ display: showModal ? "none" : "block" }}>
